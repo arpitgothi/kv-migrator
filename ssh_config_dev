@@ -1,0 +1,9 @@
+Host *
+ForwardAgent yes
+StrictHostKeyChecking no
+ServerAliveInterval 45
+#ProxyCommand ssh -oStrictHostKeyChecking=no -W %h:%p bastion.vpc-9001fdeb.dev.splunkcloud.systems
+Match exec "/usr/local/bin/sft resolve -q %h"
+    ProxyCommand "/usr/local/bin/sft" proxycommand --account splunk-dev %h
+    UserKnownHostsFile "~/Library/Application Support/ScaleFT/proxycommand_known_hosts"
+    StrictHostKeyChecking no

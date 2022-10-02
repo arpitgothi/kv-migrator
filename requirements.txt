@@ -1,0 +1,7 @@
+argparse
+boto3
+termcolor
+backoff
+jira
+packaging
+GitPython

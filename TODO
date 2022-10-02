@@ -1,0 +1,60 @@
+JIRA needs to work with cloud jira...
+  - need vault to pull down the srv-techops-auto user/token to talk to cloud jira
+
+Still to do:
+ DONE - print what you are logging into before login prompt
+ DONE - Slack notifications/requests for approvals
+ DONE - pre-req function to check for external dependencies
+ MORE TESTING (DONE?) - Downtime add for stack
+ DONE -- Legacy JIRA
+ WAIT -- Cloud JIRA
+ 
+ - better logging?
+  --- how to get logs into skynet?
+
+ - MORE testing
+
+ Compile the code??
+  -- pyinstaller scriptname.py --onefile --clean -n name_of_exe
+  -- no need to extra requirements or modules from python.
+  -- slow to start the run
+  -- large file (15MB for kv-migrator.py so far)
+
+----------------------------------------
+
+we have a working version!
+Features:
+ - communicates with CO2
+   - gets stack info
+   - checks for pending changes
+   - commits changes
+   - waits for approval
+ - connectivity checks to instances
+ - runs puppet
+ - polls logs for current status
+ - rollback ability
+   - by flag
+   - by failure status
+
+
+----------------------------------------
+
+talk to Devs about restarts required? 
+ - definitely need for backout after it was migrated.
+ - probably need for new migrations?
+ - If restart is needed... set MW for puppet to make this change
+
+talk to Devs about .kvstore_external_migrated cleanup on rollback.
+ - causes problems if it lingers, at the next attempt.
+
+--- during migration failure: 2 feature flags to update auto_migrate, and external_kvstore
+--- separate runbook for post-migration rollback.
+  --- https://confluence.splunk.com/display/CLOUDOPS/Migrate+Data+from+KVService+to+Internal+KVStore
+
+talk to devs about the environment value in platform settings.
+ - {stack}.api.scs.splunk.com to be used in near future?
+
+--- {stack}.api.scs.splunk.com is correct...
+
+kvstore migration dashboard to include timestamps for the success/failure events... or only looks at the latest per stack.
+ -- corrected and screenshot shown in slack.
